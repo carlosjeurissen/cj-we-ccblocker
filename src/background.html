@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>Background Page</title>
+
+  <script>(function () {
+  'use strict';
+
+  var browserOrChrome = typeof chrome !== 'undefined' && chrome.runtime ? chrome : typeof browser !== 'undefined' && browser;
+
+  browserOrChrome.webRequest.onBeforeRequest.addListener(function (details) {
+    if (
+      details.url.startsWith('moz-extension://') ||
+      details.url.startsWith('chrome-extension://')
+    ) return;
+
+    if (
+      details.type === 'sub_frame' ||
+      details.type === 'main_frame'
+    ) {
+      return {
+        'redirectUrl': 'about:blank'
+      };
+    }
+
+    return {
+      'cancel': true
+    };
+  }, {
+    'urls': ['*://*/**']
+  }, ['blocking']);
+})();
+</script>
+</head>
+
+<body></body>
+
+</html>

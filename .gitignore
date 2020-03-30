@@ -1,0 +1,13 @@
+# Webstorm files
+.idea/*
+
+# Vim swap files
+*.swp
+*.swo
+
+# Sublime files
+*.sublime-workspace
+
+# Mac and windows files
+.DS_Store
+.tmp

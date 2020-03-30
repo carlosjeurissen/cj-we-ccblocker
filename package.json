@@ -1,0 +1,15 @@
+{
+  "name": "cj-we-ccblocker",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "repository": "CarlosJeurissen/cj-we-ccblocker",
+  "homepage": "https://apps.jeurissen.co/",
+  "author": {
+    "name": "Carlos Jeurissen",
+    "email": "carlos@jeurissen.co"
+  },
+  "bugs": {
+    "email": "support@carlosjeurissen.com"
+  }
+}

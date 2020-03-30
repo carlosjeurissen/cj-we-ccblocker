@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>Options</title>
+</head>
+
+<body>
+  <textarea autofocus id="input" rows="10" columns="80" autocomplete="off" autocapitalize="none" placeholder="https://*.example.com/*"></textarea>
+  <button id="save">Save</button>
+  <script>(function () {
+  'use strict';
+
+  var browserOrChrome = typeof chrome !== 'undefined' && chrome.runtime ? chrome : typeof browser !== 'undefined' && browser;
+
+  var inputEl = document.getElementById('input');
+  var saveEl = document.getElementById('save');
+
+  var currentOrigins = [];
+
+  browserOrChrome.permissions.getAll(function (result) {
+    currentOrigins = result.origins;
+    inputEl.value = currentOrigins.filter(function (match) {
+      return match !== '*://*/*';
+    }).join('\n');
+  });
+
+  function getMatches () {
+    return inputEl.value.split('\n').map(function (match) {
+      if (match.indexOf('://') === -1) {
+        match = '*://' + match;
+      }
+      if (match.split('://')[1].indexOf('/') === -1) {
+        match += '/*';
+      }
+      return match;
+    });
+  }
+
+  saveEl.addEventListener('click', function () {
+    var newMatches = getMatches();
+    browserOrChrome.permissions.request({
+      'origins': newMatches
+    });
+    browserOrChrome.permissions.remove({
+      'origins': currentOrigins.filter(function (match) {
+        return newMatches.indexOf(match) === -1;
+      })
+    });
+  });
+})();
+</script>
+</body>
+
+</html>
