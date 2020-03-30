@@ -10,17 +10,24 @@
   'use strict';
 
   var browserOrChrome = typeof chrome !== 'undefined' && chrome.runtime ? chrome : typeof browser !== 'undefined' && browser;
+  var extensionOrigin = browserOrChrome.runtime.getURL('PATH/').replace('/PATH/', '');
+  var isFirefox = extensionOrigin.startsWith('moz-extension://');
+  var isFirefoxDesktop = isFirefox && navigator.userAgent.toLowerCase().indexOf('mobile') === -1;
+
+  if (isFirefoxDesktop) {
+    browserOrChrome.browserAction.setPopup({
+      'popup': ''
+    });
+
+    browserOrChrome.browserAction.onClicked.addListener(function () {
+      browserOrChrome.tabs.create({
+        'url': extensionOrigin + '/options.html'
+      });
+    });
+  }
 
   browserOrChrome.webRequest.onBeforeRequest.addListener(function (details) {
-    if (
-      details.url.startsWith('moz-extension://') ||
-      details.url.startsWith('chrome-extension://')
-    ) return;
-
-    if (
-      details.type === 'sub_frame' ||
-      details.type === 'main_frame'
-    ) {
+    if (details.type === 'sub_frame' || details.type === 'main_frame') {
       return {
         'redirectUrl': 'about:blank'
       };
@@ -30,7 +37,12 @@
       'cancel': true
     };
   }, {
-    'urls': ['*://*/**']
+    'urls': [
+      'https://*/*',
+      'http://*/*',
+      'wss://*/*',
+      'ws://*/*'
+    ]
   }, ['blocking']);
 })();
 </script>
