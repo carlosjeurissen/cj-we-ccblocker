@@ -1,7 +1,7 @@
+# Yarn and npm
+yarn-error.log
+npm-debug.log
 node_modules
-
-# Pack files
-dist_packed
 
 # Webstorm files
 .idea/*
@@ -17,3 +17,6 @@ dist_packed
 # Mac and windows files
 .DS_Store
 .tmp
+
+# Distribution files
+dist_packed
