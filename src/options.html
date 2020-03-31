@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <textarea autofocus id="input" rows="10" columns="80" autocomplete="off" autocapitalize="none" placeholder="https://*.example.com/*"></textarea>
+  <textarea autofocus id="input" rows="10" columns="80" autocomplete="off" autocapitalize="none" placeholder="example.com"></textarea>
   <button id="save">Save</button>
   <script>(function () {
   'use strict';
@@ -20,36 +20,66 @@
   var saveEl = document.getElementById('save');
 
   var currentOrigins = [];
+  var tackleRequests = 0;
 
   browserOrChrome.permissions.getAll(function (result) {
     currentOrigins = result.origins;
-    inputEl.value = currentOrigins.filter(function (match) {
-      return match !== '*://*/*';
-    }).join('\n');
+    if (currentOrigins.length === 0) {
+      tackleRequests = 2;
+    }
+    inputEl.value = decodeMatches(currentOrigins)
   });
 
-  function getMatches () {
-    return inputEl.value.split('\n').map(function (match) {
-      if (match.indexOf('://') === -1) {
-        match = '*://' + match;
+  function encodeMatches (matches) {
+    return matches.map(function (item) {
+      if (item.indexOf('://') !== -1) {
+        item = item.split('://')[1]
       }
-      if (match.split('://')[1].indexOf('/') === -1) {
-        match += '/*';
+      while (item.startsWith('*.')) {
+        item = item.replace('*.', '')
       }
-      return match;
-    });
+      return item
+    }).map(function (item) {
+      return '*://*.' + item + '/*'
+    })
+  }
+
+  function decodeMatches (matches) {
+    return matches.map(function (item) {
+      return item.replace('*://*.', '').replace('/*', '')
+    }).filter(function (match) {
+      return match !== '*';
+    }).join('\n');
+  }
+
+  function reloadIfDone() {
+    if (tackleRequests) {
+      setTimeout(reloadIfDone, 100)
+    } else {
+      browserOrChrome.runtime.reload()
+    }
+  }
+
+  function reloadCallback () {
+    tackleRequests -= 1
   }
 
   saveEl.addEventListener('click', function () {
-    var newMatches = getMatches();
+    var newMatches = encodeMatches(inputEl.value.replace(/^\s+/,'').replace(/\s+$/,'').split(/\s+/));
+    inputEl.value = decodeMatches(newMatches);
+    var callback = null
+    if (tackleRequests && newMatches.length > 0) {
+      callback = reloadCallback;
+      reloadIfDone();
+    }
     browserOrChrome.permissions.request({
       'origins': newMatches
-    });
+    }, callback);
     browserOrChrome.permissions.remove({
       'origins': currentOrigins.filter(function (match) {
         return newMatches.indexOf(match) === -1;
       })
-    });
+    }, callback);
   });
 })();
 </script>
