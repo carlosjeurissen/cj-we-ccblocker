@@ -1,6 +1,6 @@
 {
   "name": "cj-we-ccblocker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "UNLICENSED",
   "private": true,
   "repository": "CarlosJeurissen/cj-we-ccblocker",
@@ -11,5 +11,19 @@
   },
   "bugs": {
     "email": "support@carlosjeurissen.com"
+  },
+  "devDependencies": {
+    "web-ext": "^4.1.0"
+  },
+  "scripts": {
+    "webext": "web-ext"
+  },
+  "webExt": {
+    "verbose": true,
+    "sourceDir": "src",
+    "artifactsDir": "dist_packed",
+    "build": {
+      "overwriteDest": true
+    }
   }
 }
