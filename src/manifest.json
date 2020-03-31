@@ -9,8 +9,8 @@
     "name": "Carlos Jeurissen",
     "url": "https://apps.jeurissen.co/"
   },
-  "version": "1.0.4",
-  "minimum_chrome_version": "21",
+  "version": "1.0.5",
+  "minimum_chrome_version": "35",
   "minimum_opera_version": "15",
   "applications": {
     "gecko": {
