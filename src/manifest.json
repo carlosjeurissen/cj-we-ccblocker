@@ -9,7 +9,7 @@
     "name": "Carlos Jeurissen",
     "url": "https://apps.jeurissen.co/"
   },
-  "version": "1.0.6",
+  "version": "1.0.7",
   "minimum_chrome_version": "35",
   "minimum_opera_version": "15",
   "applications": {
@@ -27,15 +27,20 @@
     "persistent": true
   },
   "icons": {
-    "16": "icon.png",
-    "32": "icon.png",
-    "48": "icon.png",
-    "96": "icon.png"
+    "16": "icon.svg",
+    "32": "icon.svg",
+    "48": "icon.svg",
+    "96": "icon.svg",
+    "128": "icon.svg",
+    "256": "icon.svg"
   },
   "browser_action": {
     "default_icon": {
-      "16": "icon.png",
-      "32": "icon.png"
+      "16": "icon.svg",
+      "19": "icon.svg",
+      "24": "icon.svg",
+      "32": "icon.svg",
+      "38": "icon.svg"
     }
   },
   "options_page": "options.html",
