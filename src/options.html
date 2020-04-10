@@ -11,9 +11,9 @@
 <body>
   <textarea autofocus id="input" rows="10" cols="30" autocomplete="off" autocapitalize="none" placeholder="example.com"></textarea>
   <button id="save">Save</button>
-  <script>(function () {
-  'use strict';
+  <script>'use strict';
 
+(function () {
   var browserOrChrome = typeof chrome !== 'undefined' && chrome.runtime ? chrome : typeof browser !== 'undefined' && browser;
 
   var inputEl = document.getElementById('input');
@@ -27,56 +27,56 @@
     if (currentOrigins.length === 0) {
       tackleRequests = 2;
     }
-    inputEl.value = decodeMatches(currentOrigins)
+    inputEl.value = decodeMatches(currentOrigins);
   });
 
   function encodeMatches (matches) {
     return matches.map(function (item) {
       if (item.indexOf('://') !== -1) {
-        item = item.split('://')[1]
+        item = item.split('://')[1];
       }
       while (item.startsWith('*.')) {
-        item = item.replace('*.', '')
+        item = item.replace('*.', '');
       }
-      return item
+      return item;
     }).map(function (item) {
-      return '*://*.' + item + '/*'
-    })
+      return '*://*.' + item + '/*';
+    });
   }
 
   function decodeMatches (matches) {
     return matches.map(function (item) {
-      return item.replace('*://*.', '').replace('/*', '')
+      return item.replace('*://*.', '').replace('/*', '');
     }).filter(function (match) {
       return match !== '*';
     }).join('\n');
   }
 
-  function reloadIfDone() {
+  function reloadIfDone () {
     if (tackleRequests) {
-      setTimeout(reloadIfDone, 100)
+      setTimeout(reloadIfDone, 100);
     } else {
-      browserOrChrome.runtime.reload()
+      browserOrChrome.runtime.reload();
     }
   }
 
   function reloadCallback () {
-    tackleRequests -= 1
+    tackleRequests -= 1;
   }
 
   saveEl.addEventListener('click', function () {
-    var newMatches = encodeMatches(inputEl.value.replace(/^\s+/,'').replace(/\s+$/,'').split(/\s+/));
+    var newMatches = encodeMatches(inputEl.value.toLowerCase().replace(/^\s+/, '').replace(/\s+$/, '').split(/\s+/).sort());
     inputEl.value = decodeMatches(newMatches);
-    var callback = null
+    var callback = null;
     if (tackleRequests && newMatches.length > 0) {
       callback = reloadCallback;
       reloadIfDone();
     }
     browserOrChrome.permissions.request({
-      'origins': newMatches
+      origins: newMatches
     }, callback);
     browserOrChrome.permissions.remove({
-      'origins': currentOrigins.filter(function (match) {
+      origins: currentOrigins.filter(function (match) {
         return newMatches.indexOf(match) === -1;
       })
     }, callback);

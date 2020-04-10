@@ -6,30 +6,30 @@
 
   <title>Background Page</title>
 
-  <script>(function () {
-  'use strict';
+  <script>'use strict';
 
+(function () {
   var browserOrChrome = typeof chrome !== 'undefined' && chrome.runtime ? chrome : typeof browser !== 'undefined' && browser;
   var extensionOrigin = browserOrChrome.runtime.getURL('PATH/').replace('/PATH/', '');
-  
+
   browserOrChrome.browserAction.onClicked.addListener(function () {
     browserOrChrome.tabs.create({
-      'url': extensionOrigin + '/options.html'
+      url: extensionOrigin + '/options.html'
     });
   });
 
   browserOrChrome.webRequest.onBeforeRequest.addListener(function (details) {
     if (details.type === 'sub_frame' || details.type === 'main_frame') {
       return {
-        'redirectUrl': 'about:blank'
+        redirectUrl: 'about:blank'
       };
     }
 
     return {
-      'cancel': true
+      cancel: true
     };
   }, {
-    'urls': [
+    urls: [
       '*://*/*'
     ]
   }, ['blocking']);

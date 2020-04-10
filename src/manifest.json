@@ -4,12 +4,12 @@
   "description": "Block any website",
   "author": "Carlos Jeurissen",
   "homepage_url": "https://apps.jeurissen.co/",
-  "content_security_policy": "default-src 'none'; child-src 'none'; connect-src 'none'; font-src 'none'; frame-src 'none'; manifest-src 'none'; media-src 'none'; object-src 'none'; prefetch-src 'none'; worker-src 'none'; img-src 'none'; script-src 'self' 'sha384-QiHpn6blOFYcfAT5MDWR/S46g/SByGQgma7Ws2iAUSrax8YoA07Vh2gCoV1cmzxY' 'sha384-jIEsOYf8IofnUtUK64jYd2eJrE4zieH40sK+dh55ZZ1Ibfrhf8zqcIg831qiQ7/k'; script-src-elem 'sha384-QiHpn6blOFYcfAT5MDWR/S46g/SByGQgma7Ws2iAUSrax8YoA07Vh2gCoV1cmzxY' 'sha384-jIEsOYf8IofnUtUK64jYd2eJrE4zieH40sK+dh55ZZ1Ibfrhf8zqcIg831qiQ7/k'; script-src-attr 'none'; style-src 'none'; style-src-elem 'none'; style-src-attr 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests; require-sri-for script style; sandbox allow-same-origin allow-scripts",
+  "content_security_policy": "default-src 'none'; child-src 'none'; connect-src 'none'; font-src 'none'; frame-src 'none'; manifest-src 'none'; media-src 'none'; object-src 'none'; prefetch-src 'none'; worker-src 'none'; img-src 'none'; script-src 'self' 'sha384-CEAIC4UJzpD4g5ZZFj2Kks/xmo0baqhk6WdAxw1lEd0UNxm1+ZpBCsDPtqs+TsLj' 'sha384-+Jh3AcfohYnM3bYPPa57FmPXoqdPsfHY7jxv02QAPw7+mGHZahBc9w9CE1+jVYgJ'; script-src-elem 'sha384-CEAIC4UJzpD4g5ZZFj2Kks/xmo0baqhk6WdAxw1lEd0UNxm1+ZpBCsDPtqs+TsLj' 'sha384-+Jh3AcfohYnM3bYPPa57FmPXoqdPsfHY7jxv02QAPw7+mGHZahBc9w9CE1+jVYgJ'; script-src-attr 'none'; style-src 'none'; style-src-elem 'none'; style-src-attr 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests; require-sri-for script style; sandbox allow-same-origin allow-scripts",
   "developer": {
     "name": "Carlos Jeurissen",
     "url": "https://apps.jeurissen.co/"
   },
-  "version": "1.0.7",
+  "version": "1.0.8",
   "minimum_chrome_version": "35",
   "minimum_opera_version": "15",
   "applications": {
