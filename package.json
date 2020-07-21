@@ -1,6 +1,6 @@
 {
   "name": "cj-we-ccblocker",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "license": "UNLICENSED",
   "private": true,
   "repository": "CarlosJeurissen/cj-we-ccblocker",
@@ -13,9 +13,9 @@
     "email": "support@carlosjeurissen.com"
   },
   "devDependencies": {
-    "semistandard": "^14.2.0",
-    "set-json-version": "~1.0.3",
-    "web-ext": "^4.1.0"
+    "semistandard": "~14.2.2",
+    "set-json-version": "~1.0.4",
+    "web-ext": "~4.3.0"
   },
   "scripts": {
     "build": "web-ext build",
