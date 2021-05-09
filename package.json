@@ -14,8 +14,8 @@
   },
   "devDependencies": {
     "semistandard": "~16.0.0",
-    "set-json-version": "~1.0.4",
-    "web-ext": "~5.4.1"
+    "set-json-version": "~1.0.6",
+    "web-ext": "~6.1.0"
   },
   "scripts": {
     "build": "web-ext build",
